@@ -1,26 +1,13 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment} from "react";
 import { Form, Input, Label, Row, Col, FormGroup, Button } from 'reactstrap'
+import { useForm } from "react-hook-form";
 const Formulario = () => {
-    const [data, setData ] = useState({
-        name: '',
-        lastName: '',
-        email: '',
-        password: ''
-    })
- 
-    const handleInputChange = (event) =>{
-       // console.log(event.target.value);
-        setData({
-            ...data,
-            [event.target.name] : event.target.value
-        })
-    }
 
-    const sendData =(event) =>{
-        event.preventDefault();
-        console.log(data.name)
-    }
+    const {register, errors, handleSubMit} = useForm();
 
+    const onSubmit =(data)=>{
+        console.log(data)
+    }
 
 
     return (
@@ -31,26 +18,37 @@ const Formulario = () => {
                         <Col xs="3"></Col>
                         <Col xs="6">
                             <h1 className='mt-5 text-center'>REGISTRO</h1>
-                            <Form onSubmit={sendData}>
+                            <Form onSubmit={handleSubMit(onSubmit)}>
                                 <FormGroup>
                                     <Label>Nombre: </Label>
                                     <Input className='col-2' type="text" name="name"
-                                     onChange={handleInputChange} />
+                                     ref={
+                                        register({
+                                            required:{value:true, message: 'Nombre Obligatorio'}
+                                        })
+                                     }
+                                     />
+                                     <span className="text-danger text-small d-block mb-2">
+                                         {errors?.name?.message}
+                                     </span>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label >Apelidos: </Label>
                                     <Input type="text" name="lastName" 
-                                     onChange={handleInputChange}/>
+                                     
+                                     />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label >Correo: </Label>
                                     <Input type="text" name="email" 
-                                     onChange={handleInputChange}/>
+                                     
+                                     />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Contraseña: </Label>
                                     <Input type="password" name="password" 
-                                     onChange={handleInputChange}/>
+                                     
+                                     />
                                 </FormGroup>
                                 <FormGroup className='mt-5 text-center'>
                                     <Button color='success' type="submit"  >Guardar Registro</Button>
