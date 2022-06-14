@@ -13,6 +13,7 @@
     "react-hook-form": "^7.32.0",
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.1",
+    "sweetalert2": "^11.4.17",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
